@@ -84,15 +84,11 @@ subMenuEl.style.top = '0';
   // 5.1-8 
   var topMenuLinks = document.querySelectorAll('#top-menu a');
   var showingSubMenu = false;
-
   topMenuEl.addEventListener('click', function(evt) {
     evt.preventDefault();
     var link = evt.target;
     if (link.tagName !== 'A') return;
-
     console.log(link.textContent);
-  
-
     if (link.classList.contains('active')) {
       link.classList.remove('active');
       showingSubMenu = false;
@@ -103,10 +99,10 @@ subMenuEl.style.top = '0';
       links.classList.remove('active');
     });
     link.classList.add('active');
-    var linkVar = menuLinks.find(function(linkObj) {
-      return linkObj.text === links.textContent;
-    });
-    showingSubMenu = 'subLinks' in linkVar;
+    // var linkVar = menuLinks.find(function(linkObj) {
+    //   return linkObj.text === links.textContent;
+    // });
+    // showingSubMenu = 'subLinks' in linkVar;
     if (!showingSubMenu) mainEl.innerHTML = `<h1>${link.textContent}</h1>`;
     if (showingSubMenu) {
       buildSubMenu(linkVar.subLinks);
