@@ -82,64 +82,64 @@ var menuLinks = [
   //-----------------------------------------
   //-----------------------------------------
   // 5-6
-  var topMenuLinks = document.querySelectorAll('#top-menu a');
-  var showingSubMenu = false;
-  topMenuEl.addEventListener('click', function(evt) {
-    evt.preventDefault();
-    var link = evt.target;
-    if (link.tagName !== 'A') return;
-    console.log(link.textContent);
+var topMenuLinks = document.querySelectorAll('#top-menu a');
+var showingSubMenu = false;
+topMenuEl.addEventListener('click', function(event) {
+  event.preventDefault();
+  var link = event.target;
+  if (link.tagName !== 'A') return;
+  // console.log(link.textContent);
 
-
-    if (link.classList.contains('active')) {
-      link.classList.remove('active');
-      showingSubMenu = false;
-      subMenuEl.style.top = '0';
-      return;
-    }
-
-
-
-    topMenuLinks.forEach(function(link) {
-      link.classList.remove('active');
-    });
-    link.classList.add('active');
-    var linkVar = menuLinks.find(function(linkObj) {
-      return linkObj.text === links.textContent;
-    });
-    showingSubMenu = 'subLinks' in linkVar;
-    if (!showingSubMenu) mainEl.innerHTML = `<h1>${link.textContent}</h1>`;
-    if (showingSubMenu) {
-      buildSubMenu(linkVar.subLinks);
-      subMenuEl.style.top = '100%';
-    } else {
-      subMenuEl.style.top = '0';
-    }
+  if (link.classList.contains('active')) {
+    link.classList.remove('active');
+    showingSubMenu = false;
+    subMenuEl.style.top = '0'; return;
+  }
+  topMenuLinks.forEach(function(link) {
+    link.classList.remove('active');
   });
+  link.classList.add('active');
 
 
+
+
+//----------ERROR SOMEWHERE HERE-----------------------------------
+var linkVar = menuLinks.find(function(linkObj) {
+  return linkObj.text === link.textContent;
+});
+showingSubMenu = 'subLinks' in linkVar;
+  if (!showingSubMenu) mainEl.innerHTML = `<h1>${link.textContent}</h1>`;
+  if (showingSubMenu) {
+    buildSubMenu(linkVar.subLinks);
+    subMenuEl.style.top = '100%';
+} else {
+  subMenuEl.style.top = '0';
+}
+});
 function buildSubMenu(subLinks) {
 subMenuEl.innerHTML = '';
 subLinks.forEach(function(link) { 
-var linkEl = document.createElement('a');
-linkEl.setAttribute('href', link.href);
-
-linkEl.textContent = link.text;
-sunMenuEl.appendChild(linkEl);
+  var linkEl = document.createElement('a');
+  linkEl.setAttribute('href', link.href);
+  linkEl.textContent = link.text;
+  subMenuEl.appendChild(linkEl);
 });
 }
+subMenuEl.addEventListener('click', function(event) {
+  event.preventDefault();
+  var link = event.target;
+  if (link.tagName !== 'A') return;
+  // console.log(link.textContent);
+//-----------------------------------------------------------
 
-subMenuEl.addEventListener('click', function(evt) {
-evt.preventDefault();
-var link = evt.target;
-if (link.tagName !== 'A') return;
-console.log(link.textContent);
 
 
-showingSubMenu = false;
-subMenuEl.style.top = '0';
-topMenuLinks.forEach(function(link) {
-link.classList.remove('active');
-});
-mainEl.innerHTML = `<h1>${link.textContent}</h1>`;
+
+
+  showingSubMenu = false;
+  subMenuEl.style.top = '0';
+  topMenuLinks.forEach(function(link) {
+    link.classList.remove('active');
+  });
+  mainEl.innerHTML = `<h1>${link.textContent}</h1>`;
 });
