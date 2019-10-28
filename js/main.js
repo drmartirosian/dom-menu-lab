@@ -57,11 +57,11 @@ var menuLinks = [
   
     //Append the new element to the topMenuEl element.
     topMenuEl.appendChild(linkEl);
-  });
-  //-----------------END OF PT. 1-------------------------//
-  
-  
+  // });
+
+  //----------------END  OF  PT. 1-----------------------//
   //----------------START OF PT. 2-----------------------//
+
   //4.0 Select and cache the <nav id="sub-menu"> element in a variable named subMenuEl.
   var subMenuEl = document.getElementById("sub-menu");
   
@@ -82,39 +82,51 @@ var menuLinks = [
   
   
   //-----------------------------------------
-  // 5.0 Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks. 
-  // Declare a global showingSubMenu variable and initialize it to false;
-  var topMenuLinks = documents.quarySelectorAll('topMenuEl');
+  // 5.1-8 
+  var topMenuLinks = document.querySelectorAll('#top-menu a');
   var showingSubMenu = false;
-  
-  // 5.1 Attach a delegated 'click' event listener to topMenuEl.
-  // The first line of code of the event listener function should call the event object's preventDefault() method.
-  // The second line of code function should immediately return if the element clicked was not an <a> element.
-  // console.log the content of the <a> to verify the handler is working.
-  document.topMenuEl.getElementById('').addEventListener()
-  
-  
-  // 5.2
-  
-  // 5.3
-  
-  // 5.4
-  
-  // 5.5
-  
-  // 5.6
-  
-  // 5.7
-  
+
+  topMenuEl.addEventListener('click', function(evt) {
+    evt.preventDefault();
+    var link = evt.target;
+    if (link.tagName !== 'A') return;
+    console.log(link.textContent);
+    if (link.classList.contains('active')) {
+      link.classList.remove('active');
+      showingSubMenu = false;
+      subMenuEl.style.top = '0';
+      return;
+    }
+    topMenuLinks.forEach(function(links) {
+      links.classList.remove('active');
+    });
+    link.classList.add('active');
+
+    var linkData = menuLinks.find(function(linkObj) {
+      return linkObj.text === links.textContent;
+    });
+
+    showingSubMenu = 'subLinks' in linkData;
+
+    if (!showingSubMenu) mainEl.innerHTML = `<h1>${link.textContent}</h1>`;
+    
+    if (showingSubMenu) {
+      buildSubMenu(linkData.subLinks);
+      subMenuEl.style.top = '100%';
+    } else {
+      subMenuEl.style.top = '0';
+    }
+  )};
+
+
+
+
   // 5.8
+
+  // 5.9
   
-  //------------------------------------------
+  // ------------------------------------------
   // 6.1
   // 6.2
   // 6.3
-  // 6.4
-  
-  
-  
-  
-  
+  // 6.4 ---
